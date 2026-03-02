@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# venv
+venv/
+.env/
+psb_mock_server/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# logs
+*.log
