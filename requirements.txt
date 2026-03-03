@@ -1,0 +1,5 @@
+fastapi
+datetime
+typing
+pydantic
+pydantic_core
