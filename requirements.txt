@@ -3,3 +3,5 @@ datetime
 typing
 pydantic
 pydantic_core
+python-multipart
+uvicorn
