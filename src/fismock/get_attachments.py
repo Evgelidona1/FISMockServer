@@ -7,7 +7,7 @@ from fismock.common.commons import set_error, validate_bearer
 
 def get_attachments(app: FastAPI):
     # Эндпойнт для скачивания файла
-    @app.get("/api/v1.1/files/{id}/binaries")
+    @app.get("/psbfs/api/v1.1/files/{id}/binaries")
     async def get_attachments(id: str, authorization: Optional[str] = Header(default=None)):
         try:
             token = validate_bearer(authorization)
