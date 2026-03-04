@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Header
 from fastapi.responses import StreamingResponse
 
-from common.commons import set_error, validate_bearer
+from fismock.common.commons import set_error, validate_bearer
 
 def get_attachments(app: FastAPI):
     # Эндпойнт для скачивания файла

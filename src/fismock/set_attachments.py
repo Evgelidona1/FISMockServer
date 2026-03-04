@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, HTTPException, Depends, Form, Header, UploadF
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from common.commons import validate_bearer
+from fismock.common.commons import validate_bearer
 class FileResult(BaseModel):
     akdId: str
     externalId: str
