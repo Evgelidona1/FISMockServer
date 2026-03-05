@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 from typing import List, Optional
-from fastapi import FastAPI, File, HTTPException, Depends, Form, Header
+from fastapi import FastAPI, File, HTTPException, Depends, Body, Header
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ValidationError
 from pydantic_core import ErrorDetails
@@ -171,18 +171,17 @@ def set_error(request_id: str, result_code: int, errors: List[str], message: str
 def set_client_info(app: FastAPI):
     # Эндпойнт для создания/редактирования досье
     @app.post("/api/v2/dossier")
-    async def set_client_info(body: str = Form(), authorization: Optional[str] = Header(default=None)):
-        body_fields = json.loads(body)
+    async def set_client_info(body: dict = Body(...), authorization: Optional[str] = Header(default=None)):
         try:
             token = validate_bearer(authorization)
         except HTTPException:
-            return set_error(body_fields.get("requestId"), 401, ["Unauthorized"], "Incorrect authorization data")
+            return set_error(body.get("requestId", ""), 401, ["Unauthorized"], "Incorrect authorization data")
         if token == "forbidden":
-            return set_error(body_fields.get("requestId"), 403, ["Forbidden"], "User has no permission to the service")
+            return set_error(body.get("requestId", ""), 403, ["Forbidden"], "User has no permission to the service")
         if not body:
-            return set_error(body_fields.get("requestId"), 400, ["Body is null"], "Request error")
+            return set_error(body.get("requestId", ""), 400, ["Body is null"], "Request error")
         try:
-            body_fields = SetClientInfoModelRequest.model_validate((body_fields))
+            body_fields = SetClientInfoModelRequest.model_validate((body))
         except ValidationError as e:
             return set_error_validate(body_fields.requestId, 400, e.errors())
         values: List = []
