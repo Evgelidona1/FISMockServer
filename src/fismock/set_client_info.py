@@ -171,15 +171,15 @@ def set_error(request_id: str, result_code: int, errors: List[str], message: str
 def set_client_info(app: FastAPI):
     # Эндпойнт для создания/редактирования досье
     @app.post("/api/v2/dossier")
-    async def set_client_info(body: dict = Body(...), authorization: Optional[str] = Header(default=None)):
+    async def set_client_info(body: SetClientInfoModelRequest = Body(...), authorization: Optional[str] = Header(default=None)):
         try:
             token = validate_bearer(authorization)
         except HTTPException:
-            return set_error(body.get("requestId", ""), 401, ["Unauthorized"], "Incorrect authorization data")
+            return set_error(body.requestId, 401, ["Unauthorized"], "Incorrect authorization data")
         if token == "forbidden":
-            return set_error(body.get("requestId", ""), 403, ["Forbidden"], "User has no permission to the service")
+            return set_error(body.requestId, 403, ["Forbidden"], "User has no permission to the service")
         if not body:
-            return set_error(body.get("requestId", ""), 400, ["Body is null"], "Request error")
+            return set_error(body.requestId, 400, ["Body is null"], "Request error")
         try:
             body_fields = SetClientInfoModelRequest.model_validate((body))
         except ValidationError as e:
