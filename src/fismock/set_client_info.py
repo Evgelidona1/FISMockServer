@@ -51,56 +51,56 @@ class Client(BaseModel):
 class Package(BaseModel):
     localId: str
     type: str
-    productSapId: str
-    productTypeId: str
-    contractNum: str
-    contractDate: datetime
+    productSapId: Optional[str] = None
+    productTypeId: Optional[str] = None
+    contractNum: Optional[str] = None
+    contractDate: Optional[datetime] = None
 class Attachment(BaseModel):
     fileId: str
-    typeOriginalId: str
-    typeAssuranceId: str
-    officeid: str
-    akdCreatedDate: datetime
-    akdCreatedBy: str
-    akdId: str
-    deleteLink: bool
+    typeOriginalId: Optional[str] = None
+    typeAssuranceId: Optional[str] = None
+    officeid: Optional[str] = None
+    akdCreatedDate: Optional[datetime] = None
+    akdCreatedBy: Optional[str] = None
+    akdId: Optional[str] = None
+    deleteLink: Optional[bool] = None
 class Holding(BaseModel):
     localId: str
-    holdingIdealId: str
-    holdingRealId: str
+    holdingIdealId: Optional[str] = None
+    holdingRealId: Optional[str] = None
 class Document(BaseModel):
     localId: str
-    docTypeCode: str
-    docName: str
-    docNumber: str
-    docDate: datetime
-    conditionMonitoring: str
-    dateMonitoring: datetime
-    creditCompany: str
-    personName: str
-    agentName: str
-    period: str
-    numberLineReports: List[str]
-    numberLineBalances: List[str]
-    invoices: List[str]
-    validity: datetime
-    docYear: int
-    docQuarter: int
-    docVisit: datetime
-    comment: str
-    comments: List[str]
-    text_comment: str
-    secrecyStamp: str
-    accessUsers: List[str]
-    storageSecretDocument: str
-    dateState: datetime
-    periodStart: datetime
-    periodEnd: datetime
-    addedBy: str
-    numberAgreement: str
-    dateAgreement: datetime
+    docTypeCode: Optional[str] = None
+    docName: Optional[str] = None
+    docNumber: Optional[str] = None
+    docDate: Optional[datetime] = None
+    conditionMonitoring: Optional[str] = None
+    dateMonitoring: Optional[datetime] = None
+    creditCompany: Optional[str] = None
+    personName: Optional[str] = None
+    agentName: Optional[str] = None
+    period: Optional[str] = None
+    numberLineReports: Optional[List[str]] = None
+    numberLineBalances: Optional[List[str]] = None
+    invoices: Optional[List[str]] = None
+    validity: Optional[datetime] = None
+    docYear: Optional[int] = None
+    docQuarter: Optional[int] = None
+    docVisit: Optional[datetime] = None
+    comment: Optional[str] = None
+    comments: Optional[List[str]] = None
+    text_comment: Optional[str] = None
+    secrecyStamp: Optional[str] = None
+    accessUsers: Optional[List[str]] = None
+    storageSecretDocument: Optional[str] = None
+    dateState: Optional[datetime] = None
+    periodStart: Optional[datetime] = None
+    periodEnd: Optional[datetime] = None
+    addedBy: Optional[str] = None
+    numberAgreement: Optional[str] = None
+    dateAgreement: Optional[datetime] = None
     attachments: List[Attachment]
-    signElectronicFlag: bool
+    signElectronicFlag: Optional[bool] = None
 class Object(BaseModel):
     type: str
     refLocalId: str
