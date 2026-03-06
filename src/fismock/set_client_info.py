@@ -14,40 +14,40 @@ class ClientManager(BaseModel):
 class Client(BaseModel):
     localId: str
     type: str
-    clientSapId: str
-    idealClientSapId: str
-    clientTypeId: str
-    isResident: bool
-    isTaxResident: bool
-    fullName: str
-    shortName: str
-    regNumber: str
-    regDate: str
-    lastName: str
-    name: str
-    patronymic: str
-    birthDate: str
-    passportSeries: str
-    passportNumber: str
-    snils: str
-    inn: str
-    kpp: str
-    kio: str
-    registredRF: bool
-    dossierBarcode: str
-    innNewTerritory: str
-    akdCreatedDate: datetime
-    akdCreatedBy: str
-    akdLastModifiedDate: datetime
-    akdLastModifiedBy: str
-    id: str
-    editMark: bool
-    akdId: str
-    businessSegmentCode: str
-    clientManagers: List[ClientManager]
-    employee: bool
-    vip: bool
-    comment: str
+    clientSapId: Optional[str] = None
+    idealClientSapId: Optional[str] = None
+    clientTypeId: Optional[str] = None
+    isResident: Optional[bool] = None
+    isTaxResident: Optional[bool] = None
+    fullName: Optional[str] = None
+    shortName: Optional[str] = None
+    regNumber: Optional[str] = None
+    regDate: Optional[str] = None
+    lastName: Optional[str] = None
+    name: Optional[str] = None
+    patronymic: Optional[str] = None
+    birthDate: Optional[str] = None
+    passportSeries: Optional[str] = None
+    passportNumber: Optional[str] = None
+    snils: Optional[str] = None
+    inn: Optional[str] = None
+    kpp: Optional[str] = None
+    kio: Optional[str] = None
+    registredRF: Optional[bool] = None
+    dossierBarcode: Optional[str] = None
+    innNewTerritory: Optional[str] = None
+    akdCreatedDate: Optional[datetime] = None
+    akdCreatedBy: Optional[str] = None
+    akdLastModifiedDate: Optional[datetime] = None
+    akdLastModifiedBy: Optional[str] = None
+    id: Optional[str] = None
+    editMark: Optional[bool] = None
+    akdId: Optional[str] = None
+    businessSegmentCode: Optional[str] = None
+    clientManagers: Optional[List[ClientManager]] = None
+    employee: Optional[bool] = None
+    vip: Optional[bool] = None
+    comment: Optional[str] = None
 class Package(BaseModel):
     localId: str
     type: str
@@ -179,7 +179,7 @@ def set_client_info(app: FastAPI):
         if token == "forbidden":
             return set_error(body.requestId, 403, ["Forbidden"], "User has no permission to the service")
         if not body:
-            return set_error(body.requestId, 400, ["Body is null"], "Request error")
+            return set_error("null", 400, ["Body is null"], "Request error")
         try:
             body_fields = SetClientInfoModelRequest.model_validate((body))
         except ValidationError as e:
@@ -193,7 +193,6 @@ def set_client_info(app: FastAPI):
             values.extend(p.localId for p in body_fields.documents)
         if body_fields.holdings:
             values.extend(p.localId for p in body_fields.holdings)
-        #values = [body_fields.clients.localId, body_fields.packages.localId, body_fields.documents.localId, body_fields.holdings.localId]
         if len(values) != len(set(values)):
             return set_error(body_fields.requestId, 400, ["Double localId was found in one of types: clients, packages, documents, holdings"], "Request error")
         errors: List[str] = []
