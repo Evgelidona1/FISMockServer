@@ -44,7 +44,7 @@ class Client(BaseModel):
     editMark: Optional[bool] = None
     akdId: Optional[str] = None
     businessSegmentCode: Optional[str] = None
-    clientManagers: Optional[List[ClientManager]] = None
+    clientManagers: Optional[str] = None
     employee: Optional[bool] = None
     vip: Optional[bool] = None
     comment: Optional[str] = None
