@@ -15,10 +15,10 @@ class Tag(BaseModel):
     tag: str
 class FileRequest(BaseModel):
     fileName: str
-    description: str
+    description: Optional[str] = None
     externalId: str
     tags: List[str]
-    externalCreatedDate: datetime
+    externalCreatedDate: Optional[datetime] = None
 class SignResult(BaseModel):
     signResultDate: datetime
     signResult: bool
@@ -33,7 +33,7 @@ class SignResult(BaseModel):
     signerCertificateSerialNumber: str
 class AttachmentsRequest(BaseModel):
     fileName: str
-    description: str
+    description: Optional[str] = None
     type: str
     signResults: Optional[List[SignResult]] = None
 class AttachmentResult(BaseModel):
@@ -52,7 +52,7 @@ class SetAttachmentsModelRequest(BaseModel):
     author: str
     sourceSystem: str
     file: FileRequest
-    attachments: List[AttachmentsRequest]
+    attachments: Optional[List[AttachmentsRequest]] = None
 
 def set_error(result_code: int, errors: Error, message: str):
     payload = SetAttachmentsModel(status="ERROR", 
